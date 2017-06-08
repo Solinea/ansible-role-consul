@@ -1,6 +1,6 @@
 # ansible-role-consul
 
-https://travis-ci.org/Solinea/ansible-role-consul.svg?branch=master
+[![Build Status](https://travis-ci.org/Solinea/ansible-role-consul.svg?branch=master)](https://travis-ci.org/Solinea/ansible-role-consul)
 
 ## Purpose:
 A simple role to install consul
