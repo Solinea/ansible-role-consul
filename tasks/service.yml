@@ -1,0 +1,8 @@
+---
+#ansible/roles/consul/tasks/service.yml
+
+- name: Start service
+  service:
+    name: consul
+    state: started
+    enabled: yes

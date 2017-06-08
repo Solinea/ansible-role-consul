@@ -1,0 +1,44 @@
+---
+#defaults/main.yml
+
+consul_version: 0.8.3
+consul_raft_multiplier: []
+consul_restart_condition: "on-failure"
+consul_archive: "consul_{{ consul_version }}_linux_amd64.zip"
+consul_sums: "consul_{{ consul_version }}_SHA256SUMS"
+consul_signature: "consul_{{ consul_version }}_SHA256SUMS.sig"
+consul_ui_archive: "consul_{{ consul_version }}_web_ui.zip"
+consul_url_stub: "https://releases.hashicorp.com/consul/{{ consul_version }}"
+consul_download: "{{consul_url_stub}}/{{ consul_archive }}"
+consul_sums_download: "{{consul_url_stub}}/{{ consul_sums }}"
+consul_signature_download: "{{consul_url_stub}}/{{ consul_signature }}"
+consul_ui_download: "{{consul_url_stub }}/{{ consul_ui_archive }}"
+consul_home_dir: /opt/consul
+consul_config_dir: /etc/consul.d
+consul_config_file: /etc/consul.conf
+consul_log_file: /var/log/consul
+consul_bin_dir: "{{ consul_home_dir }}/bin"
+consul_data_dir: "{{ consul_home_dir }}/data"
+consul_raft_dir: "{{ consul_data_dir }}/raft"
+consul_ui_dir: "{{ consul_home_dir }}/dist"
+consul_binary: consul
+consul_user: consul
+consul_group: consul
+consul_domain: solinea.
+consul_is_server: false
+consul_is_ui: false
+consul_servers: []
+consul_bootstrap: false
+consul_leave_on_terminate: false
+consul_bootstrap_expect: -1
+consul_log_level: "INFO"
+consul_syslog: false
+consul_rejoin_after_leave: true
+consul_bind_address: "0.0.0.0"
+consul_client_address: "127.0.0.1"
+consul_datacenter: "default"
+consul_internal_health_checks: []
+consul_global_health_checks: []
+consul_env_health_checks: []
+consul_health_checks: []
+consul_disable_remote_exec: true

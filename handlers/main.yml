@@ -1,0 +1,11 @@
+---
+
+- name: consul_reload
+  service:
+    name: consul
+    state: reloaded
+
+- name: consul_restart
+  service:
+    name: consul
+    state: restarted

@@ -1,0 +1,47 @@
+---
+#ansible/roles/consul/tasks/download.yml
+
+# see https://www.hashicorp.com/security/
+- name: Copy hashicorp key
+  copy:
+    src: hashicorp.asc
+    dest: /tmp/hashicorp.asc
+
+- name: Verify key was copied
+  stat:
+    path: /tmp/hashicorp.asc
+  register: hashicorp_key
+
+- name: Import hashicorp key
+  command: gpg --import /tmp/hashicorp.asc
+  when: hashicorp_key.stat.exists
+
+- name: Get the checksum file
+  get_url:
+    url: "{{ consul_sums_download }}"
+    dest: "/tmp/{{consul_sums}}"
+  register: get_checksum
+
+- name: Get the signature file
+  get_url:
+    url: "{{ consul_signature_download }}"
+    dest: "/tmp/{{consul_signature}}"
+  register: get_signature
+
+- name: Verify hashicorp key
+  command: gpg --verify {{ consul_signature }} {{ consul_sums }}
+  args:
+    chdir: /tmp
+  when: get_checksum.status_code == 200 and get_signature.status_code == 200
+
+- name: Get the zip file
+  get_url:
+    url: "{{ consul_download }}"
+    dest: "/tmp/{{consul_archive}}"
+  register: zip_download
+
+- name: Verify zip
+  shell: grep {{ consul_archive}} {{consul_sums}} | sha256sum -c
+  args:
+    chdir: /tmp/
+  when: zip_download.status_code == 200

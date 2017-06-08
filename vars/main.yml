@@ -1,0 +1,6 @@
+---
+#ansible/roles/consul/vars/main.yml
+
+consul_system_packages:
+  - unzip
+  - gpg

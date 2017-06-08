@@ -1,0 +1,29 @@
+{
+  "domain": "{{ consul_domain }}",
+  "data_dir": "{{ consul_home_dir }}/data",
+  "log_level": "{{ consul_log_level }}",
+{% if consul_syslog %}
+  "enable_syslog": true,
+{% endif %}
+{% if consul_raft_multiplier %}
+  "performance": {
+    "raft_multiplier": {{ consul_raft_multiplier }}
+  },
+{% endif %}
+  "server": {{ "true" if consul_is_server else "false" }},
+  "client_addr": "{{ consul_client_address }}",
+  "bind_addr": "{{ consul_bind_address }}",
+  "rejoin_after_leave": {{ "true" if consul_rejoin_after_leave else "false" }},
+{% if consul_bootstrap_expect > 0 and consul_bootstrap == false %}
+  "bootstrap_expect": {{ consul_bootstrap_expect }},
+{% endif %}
+{% if consul_is_server %}
+  "bootstrap": {{ "true" if consul_bootstrap else "false" }},
+{% endif %}
+{% if consul_leave_on_terminate %}
+  "leave_on_terminate": true,
+{% endif %}
+  "datacenter": "{{ consul_datacenter }}",
+  "disable_update_check": true,
+  "disable_remote_exec": {{ "true" if consul_disable_remote_exec else "false" }}
+}

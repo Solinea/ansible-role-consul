@@ -1,0 +1,45 @@
+---
+#ansible/roles/consul/tasks/install.yml
+
+- name: Create consul group
+  group:
+    name: "{{consul_group}}"
+    state: present
+
+- name: Create consul user
+  user:
+    name: "{{consul_user}}"
+    group: "{{consul_group}}"
+
+- name: Install deps
+  package:
+    name: "{{item}}"
+    state: present
+  with_items: '{{consul_system_packages}}'
+
+- name: Create consul directory
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{{consul_user}}"
+    group: "{{consul_group}}"
+  with_items:
+    - '{{ consul_home_dir }}'
+    - '{{ consul_data_dir }}'
+    - '{{ consul_raft_dir }}'
+    - '{{ consul_bin_dir }}'
+    - '{{ consul_config_dir }}'
+
+- name: Unpack zip
+  unarchive:
+    src: "/tmp/{{consul_archive}}"
+    dest: "{{ consul_home_dir }}/bin"
+    remote_src: True
+
+- name: Set ownership
+  file:
+    state: directory
+    path: "{{consul_home_dir}}"
+    owner: "{{consul_user}}"
+    group: "{{consul_group}}"
+    recurse: yes

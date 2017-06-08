@@ -1,0 +1,36 @@
+---
+#ansible/roles/consul/tasks/configure.yml
+
+- name: Copy consul systemd script
+  template:
+    src: consul.service.systemd.j2
+    dest: /etc/systemd/system/consul.service
+    mode: 0644
+  notify:
+    - consul_restart
+
+- name: Add consul to path through profile.d
+  template:
+    src: consul.sh.j2
+    dest: /etc/profile.d/consul.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy consulkv script
+  template:
+    src: consulkv.j2
+    dest: "{{consul_home_dir}}/bin/consulkv"
+    owner: "{{consul_user}}"
+    group: "{{consul_group}}"
+    mode: 0755
+
+- name: Consul config file
+  template:
+    src: consul.json.j2
+    dest: "{{ consul_config_file }}"
+    owner: "{{consul_user}}"
+    group: "{{consul_group}}"
+    mode: 0755
+  notify:
+    - consul_restart

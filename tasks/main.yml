@@ -1,0 +1,21 @@
+---
+#ansible/roles/consul/tasks/main.yml
+
+- name: Verify consul is not installed
+  stat:
+    path: "{{ consul_home_dir }}/bin/consul"
+  register: consul_executable
+
+- block:
+   - name: Main downloader
+     include: download.yml
+
+   - name: Main installer
+     include: install.yml
+
+   - name: Main config
+     include: configure.yml
+
+   - name: Main service
+     include: service.yml
+  when: not consul_executable.stat.exists
