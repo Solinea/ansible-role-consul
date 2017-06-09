@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Solinea/ansible-role-consul.svg?branch=master)](https://travis-ci.org/Solinea/ansible-role-consul)
 
 ## Purpose:
-A simple role to install consul
+A simple role to install [Hashicorp's consul](https://www.consul.io/)
 
 ## Testing 
 This role is instrumented with the [`Molecule`](https://molecule.readthedocs.io/en/stable-1.25/) test harness. To run it, install `Molecule` with pip
