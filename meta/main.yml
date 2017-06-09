@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Tennis Smith
+  description: Simple Consul installer
+  company: Solinea
+  license: Apache 2.0
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: CentOS
+    versions:
+    - all
+  galaxy_tags:
+    - solinea
+    - consul
+dependencies:
