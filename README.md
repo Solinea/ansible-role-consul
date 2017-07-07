@@ -10,7 +10,8 @@ This role is instrumented with the [`Molecule`](https://molecule.readthedocs.io/
  ```commandline
 $ pip install ansible
 $ pip install docker
-$ pip install molecule
+$ pip install molecule==1.25
+$ pip install testinfra==1.6.4
 ```
 then execute the tests like this
 ```commandline
